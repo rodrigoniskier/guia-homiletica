@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Interativo de Preparação de Sermão Expositivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 3px solid #4A90E2;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            color: #2C3E50;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #4A90E2, #50C878);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px 20px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2C3E50;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(135deg, #4A90E2, #50C878);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #2C3E50;
+            border-color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            min-height: 100vh;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #4A90E2, #50C878);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #4A90E2;
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #2C3E50;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #FF8C00;
+            font-style: italic;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .interactive-element {
+            background: linear-gradient(135deg, #50C878, #32CD32);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            background: linear-gradient(135deg, #32CD32, #228B22);
+            transform: scale(1.02);
+        }
+
+        .question-list {
+            background: #F8F9FA;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #50C878;
+        }
+
+        .question-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #4A90E2;
+        }
+
+        .example-section {
+            background: linear-gradient(135deg, #E6F3FF, #F0F8FF);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #4A90E2;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #2C3E50;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #E0E0E0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4A90E2, #50C878);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .footer {
+            background: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+            border-radius: 15px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-details {
+            background: none;
+            border: 2px solid #4A90E2;
+            color: #4A90E2;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .toggle-details:hover {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: #F8F9FA;
+            border-radius: 10px;
+            border-left: 4px solid #50C878;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Menu -->
+        <nav class="sidebar">
+            <h1>📖 Guia de Sermão Expositivo</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <a href="#" class="menu-item active" onclick="showSection('overview')">🎯 Visão Geral</a>
+            <a href="#" class="menu-item" onclick="showSection('step1')">🙏 1. Preparação Espiritual</a>
+            <a href="#" class="menu-item" onclick="showSection('step2')">📝 2. Escolha do Texto</a>
+            <a href="#" class="menu-item" onclick="showSection('step3')">🔍 3. Estudo Exegético</a>
+            <a href="#" class="menu-item" onclick="showSection('step4')">💡 4. Ideia Central</a>
+            <a href="#" class="menu-item" onclick="showSection('step5')">🎪 5. Formulação da Tese</a>
+            <a href="#" class="menu-item" onclick="showSection('step6')">🎭 6. Definição do Tema</a>
+            <a href="#" class="menu-item" onclick="showSection('step7')">🎯 7. Propósitos</a>
+            <a href="#" class="menu-item" onclick="showSection('step8')">❓ 8. Pergunta Condutora</a>
+            <a href="#" class="menu-item" onclick="showSection('step9')">🚀 9. Introdução</a>
+            <a href="#" class="menu-item" onclick="showSection('step10')">📊 10. Divisão em Pontos</a>
+            <a href="#" class="menu-item" onclick="showSection('step11')">🔄 11. Aplicação</a>
+            <a href="#" class="menu-item" onclick="showSection('step12')">🏁 12. Conclusão</a>
+            <a href="#" class="menu-item" onclick="showSection('step13')">✅ 13. Preparo Final</a>
+            <a href="#" class="menu-item" onclick="showSection('example')">📚 Exemplo Prático</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="section-header">
+                    <h2>🎯 Guia Completo de Preparação de Sermão Expositivo</h2>
+                    <p>Uma jornada estruturada para pregar a Palavra com fidelidade e poder</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🌟 Bem-vindo à Arte da Pregação Expositiva</h3>
+                    <p>Este guia interativo foi desenvolvido para ajudá-lo a preparar sermões expositivos que honrem a Palavra de Deus e transformem vidas. Cada etapa foi cuidadosamente estruturada para garantir que você comunique fielmente a mensagem bíblica.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('mission')">
+                        <strong>🎯 Clique aqui para ver nossa missão</strong>
+                    </div>
+                    <div id="mission" class="hidden-content">
+                        <p>Nossa missão é equipar pregadores para expor as Escrituras com clareza, paixão e fidelidade, permitindo que a Palavra de Deus seja o centro absoluto da mensagem.</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>📋 O que você encontrará neste guia:</h3>
+                    <div class="question-list">
+                        <div class="question-item">✅ 13 passos estruturados para preparação</div>
+                        <div class="question-item">✅ Perguntas reflexivas para cada etapa</div>
+                        <div class="question-item">✅ Exemplo prático com Efésios 2.1-10</div>
+                        <div class="question-item">✅ Citações de grandes pregadores</div>
+                        <div class="question-item">✅ Aplicações práticas para sua realidade</div>
+                    </div>
+                </div>
+
+                <div class="quote-card">
+                    <p>"Pregação pura e simples é exatidão exegética, conteúdo doutrinário, estrutura clara, ilustrações vívidas, aplicação penetrante e autoridade sobrenatural."</p>
+                    <strong>- Stuart Olyott</strong>
+                </div>
+            </section>
+
+            <!-- Step 1: Preparação Espiritual -->
+            <section id="step1" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">1</span>🙏 Preparação Espiritual</h2>
+                    <p>O fundamento de toda pregação eficaz</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Antes de qualquer estudo bíblico, estabeleça um tempo de oração e humilhação diante de Deus. Reconheça que você é apenas um instrumento nas mãos do Senhor.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('prayer-guide')">
+                        <strong>🔥 Clique aqui para um guia de oração</strong>
+                    </div>
+                    <div id="prayer-guide" class="hidden-content">
+                        <p><strong>Ore por:</strong></p>
+                        <ul>
+                            <li>Humildade para servir como instrumento</li>
+                            <li>Iluminação do Espírito Santo</li>
+                            <li>Coração submisso à Palavra</li>
+                            <li>Sabedoria para compreender o texto</li>
+                            <li>Poder para comunicar com clareza</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="quote-card">
+                    <p>"Se cremos nisso, não ousaremos nos aproximar da pregação de qualquer outra maneira, exceto com um espírito de oração, seriedade e estudo."</p>
+                    <strong>- Stuart Olyott</strong>
+                </div>
+
+                <div class="content-card">
+                    <h3>🤔 Perguntas para Reflexão:</h3>
+                    <div class="question-list">
+                        <div class="question-item">Meu coração está realmente inclinado a buscar a glória de Deus e não a minha?</div>
+                        <div class="question-item">Estou orando para que Deus fale primeiro comigo antes de falar aos outros?</div>
+                        <div class="question-item">Tenho consciência da responsabilidade e privilégio de ser porta-voz da Palavra?</div>
+                        <div class="question-item">Há pecado não confessado ou distrações que preciso deixar aos pés de Cristo?</div>
+                        <div class="question-item">Estou pedindo ao Espírito Santo humildade, clareza, dependência e poder?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Escolha do Texto -->
+            <section id="step2" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">2</span>📝 Escolha e Meditação no Texto</h2>
+                    <p>Deixe que Deus guie sua escolha</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Escolha o texto através de oração e direção divina. Leia várias vezes, em diferentes versões, meditando profundamente em cada palavra e buscando a intenção original do autor.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('reading-method')">
+                        <strong>📖 Clique aqui para o método de leitura</strong>
+                    </div>
+                    <div id="reading-method" class="hidden-content">
+                        <p><strong>Método de Leitura Meditativa:</strong></p>
+                        <ol>
+                            <li>Leia em silêncio (concentração)</li>
+                            <li>Leia em voz alta (audição)</li>
+                            <li>Leia em diferentes versões (comparação)</li>
+                            <li>Leia palavra por palavra (análise)</li>
+                            <li>Leia como oração (adoração)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="quote-card">
+                    <p>"De joelhos (literalmente!). Leia agora o seu texto. Leia sentença por sentença, palavra por palavra, usando cada parte como combustível para a oração."</p>
+                </div>
+
+                <div class="content-card">
+                    <h3>🤔 Perguntas para Reflexão:</h3>
+                    <div class="question-list">
+                        <div class="question-item">Este texto foi escolhido por mim ou pela direção do Senhor?</div>
+                        <div class="question-item">Já li este texto várias vezes, em diferentes versões e traduções?</div>
+                        <div class="question-item">O que mais me impacta ao ler este texto? Por quê?</div>
+                        <div class="question-item">Que palavras, frases ou ideias se repetem ou se destacam?</div>
+                        <div class="question-item">O que esse texto diz sobre Deus, o homem, Cristo e a salvação?</div>
+                        <div class="question-item">Já me coloquei no lugar dos ouvintes originais?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Estudo Exegético -->
+            <section id="step3" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">3</span>🔍 Estudo Exegético Detalhado</h2>
+                    <p>Mergulhe nas profundezas do texto</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Realize uma análise completa do texto: contexto histórico, análise gramatical, estudo lexical, contexto literário e teológico. Use o método histórico-gramatical para garantir interpretação fiel.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('exegesis-steps')">
+                        <strong>🔬 Clique aqui para os passos da exegese</strong>
+                    </div>
+                    <div id="exegesis-steps" class="hidden-content">
+                        <p><strong>Passos da Exegese:</strong></p>
+                        <ol>
+                            <li><strong>Contexto Histórico:</strong> Autor, data, ocasião, destinatários</li>
+                            <li><strong>Contexto Literário:</strong> Posição no livro, fluxo do argumento</li>
+                            <li><strong>Análise Gramatical:</strong> Estrutura das sentenças, tempos verbais</li>
+                            <li><strong>Estudo Lexical:</strong> Significado das palavras-chave</li>
+                            <li><strong>Contexto Teológico:</strong> Como se relaciona com toda a Escritura</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="quote-card">
+                    <p>"Com a renovação da ênfase no método histórico-gramatical ficou patente que não se poderia recorrer à alegoria como ferramenta legítima de interpretação das Escrituras..."</p>
+                    <strong>- Graeme Goldsworthy</strong>
+                </div>
+
+                <div class="content-card">
+                    <h3>🤔 Perguntas para Reflexão:</h3>
+                    <div class="question-list">
+                        <div class="question-item">Qual o contexto imediato (literário), remoto (do livro/carta) e histórico (autor, data, ocasião)?</div>
+                        <div class="question-item">Quais são as principais palavras ou expressões no original (hebraico/grego) e o que elas significam?</div>
+                        <div class="question-item">Existe algum problema textual, variante de tradução ou dificuldade interpretativa relevante aqui?</div>
+                        <div class="question-item">Como este texto se relaciona com o restante do livro? E da Bíblia toda?</div>
+                        <div class="question-item">Que outros textos das Escrituras iluminam ou esclarecem este aqui?</div>
+                        <div class="question-item">Que perguntas honestas ou dúvidas naturais um ouvinte teria sobre este texto?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Ideia Central -->
+            <section id="step4" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">4</span>💡 Identificação da Ideia Central do Texto (ICT)</h2>
+                    <p>O coração da mensagem bíblica</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Identifique a lição principal do texto em até 18 palavras, com um único verbo no passado, refletindo fielmente o que o autor ensinou.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('ict-formula')">
+                        <strong>⚡ Clique aqui para a fórmula da ICT</strong>
+                    </div>
+                    <div id="ict-formula" class="hidden-content">
+                        <p><strong>Fórmula da ICT:</strong></p>
+                        <ul>
+                            <li>Máximo 18 palavras</li>
+                            <li>Um único verbo no passado</li>
+                            <li>Reflete a intenção do autor</li>
+                            <li>Captura a essência do texto</li>
+                            <li>Pode ser explicada a uma criança</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example-section">
+                    <h3>📚 Exemplo Prático:</h3>
+                    <p><strong>Texto:</strong> Efésios 2.1-10</p>
+                    <p><strong>ICT:</strong> Deus vivificou, pela graça, pecadores mortos, para viverem em boas obras preparadas por Ele.</p>
+                </div>
+
+                <div class="content-card">
+                    <h3>🤔 Perguntas para Reflexão:</h3>
+                    <div class="question-list">
+                        <div class="question-item">Qual a verdade mais essencial deste texto, em uma frase curta?</div>
+                        <div class="question-item">Se eu tivesse que explicar para uma criança, o que diria?</div>
+                        <div class="question-item">Estou usando um único verbo no passado e mantendo até 18 palavras?</div>
+                        <div class="question-item">Essa ideia realmente resume a intenção do autor e do Espírito Santo neste trecho?</div>
+                        <div class="question-item">Há perigo de reduzir a mensagem do texto ou de generalizá-la demais?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: Formulação da Tese -->
+            <section id="step5" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">5</span>🎪 Formulação da Tese</h2>
+                    <p>Transformando a ICT em aplicação presente</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Transforme a ICT em uma frase direcionada à igreja, mudando o verbo para o futuro, mostrando como a verdade do texto se aplica aos ouvintes hoje.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('thesis-transformation')">
+                        <strong>🔄 Clique aqui para ver a transformação</strong>
+                    </div>
+                    <div id="thesis-transformation" class="hidden-content">
+                        <p><strong>Transformação ICT → Tese:</strong></p>
+                        <p><strong>ICT:</strong> Deus vivificou, pela graça, pecadores mortos...</p>
+                        <p><strong>Tese:</strong> Deus vivificará pecadores mortos, salvando-os pela graça...</p>
+                        <p>A mudança do tempo verbal torna a mensagem relevante para hoje!</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>🤔 Perguntas para Reflexão:</h3>
+                    <div class="question-list">
+                        <div class="question-item">Minha tese aponta para o futuro, aplicando a ICT à igreja de hoje?</div>
+                        <div class="question-item">Ela desafia, consola, exorta, instrui — o que Deus deseja para os ouvintes?</div>
+                        <div class="question-item">Estou usando essencialmente as mesmas palavras da ICT, mudando apenas o tempo do verbo?</div>
+                        <div class="question-item">Essa tese poderia ser transformada em uma oração pela igreja?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: Definição do Tema -->
+            <section id="step6" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">6</span>🎭 Definição do Tema</h2>
+                    <p>O fio condutor que une toda a mensagem</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Defina um tema claro e memorável que governará toda a estrutura do sermão: introdução, pontos, aplicações, ilustrações e conclusão.</p>
+                    
+                    <div class="interactive-element" onclick="toggleContent('theme-examples')">
+                        <strong>🎨 Clique aqui para exemplos de temas</strong>
+                    </div>
+                    <div id="theme-examples" class="hidden-content">
+                        <p><strong>Exemplos de Temas Eficazes:</strong></p>
+                        <ul>
+                            <li>"Da morte para a vida pela graça"</li>
+                            <li>"O amor que transforma"</li>
+                            <li>"Fé que move montanhas"</li>
+                            <li>"Esperança em tempos difíceis"</li>
+                            <li>"O poder do perdão"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="quote-card">
+                    <p>"O tema deve governar tudo: Introdução, pontos, ilustrações, aplicações, conclusão e fechamento devem estar todos em diálogo direto com o tema."</p>
+                </div>
+
+                <div class="content-card">
+                    <h3>🤔 Perguntas para Reflexão:</h3>
+                    <div class="question-list">
+                        <div class="question-item">O tema é direto, marcante, fácil de lembrar?</div>
+                        <div class="question-item">Se alguém só lembrar de uma palavra ou frase do sermão, será o tema?</div>
+                        <div class="question-item">O tema governa (de verdade) cada parte do sermão: introdução, pontos, aplicação, conclusão?</div>
+                        <div class="question-item">O tema reflete fielmente a intenção do texto?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 7: Propósitos -->
+            <section id="step7" class="content-section">
+                <div class="section-header">
+                    <h2><span class="step-number">7</span>🎯 Definição dos Propósitos</h2>
+                    <p>Básico e Específico - O que você quer alcançar</p>
+                </div>
+                
+                <div class="content-card">
+                    <h3>🎯 O que fazer:</h3>
+                    <p>Defina claramente dois propósitos: o básico (o que você quer fazer) e o específico (o que a igreja fará em resposta).</p
