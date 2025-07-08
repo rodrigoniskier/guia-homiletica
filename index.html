@@ -299,6 +299,56 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            
+            <script>
+                // Navigation functionality
+                function showSection(sectionId) {
+                    // Hide all sections
+                    const sections = document.querySelectorAll('.content-section');
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show selected section
+                    const targetSection = document.getElementById(sectionId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                    
+                    // Update menu items
+                    const menuItems = document.querySelectorAll('.menu-item');
+                    menuItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked menu item
+                    event.target.classList.add('active');
+                    
+                    // Update progress bar
+                    updateProgressBar(sectionId);
+                }
+                
+                function updateProgressBar(sectionId) {
+                    const sections = ['overview', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9', 'step10', 'step11', 'step12', 'step13', 'example'];
+                    const currentIndex = sections.indexOf(sectionId);
+                    const progress = ((currentIndex + 1) / sections.length) * 100;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                }
+                
+                function toggleContent(contentId) {
+                    const content = document.getElementById(contentId);
+                    if (content.style.display === 'none' || content.style.display === '') {
+                        content.style.display = 'block';
+                    } else {
+                        content.style.display = 'none';
+                    }
+                }
+                
+                // Initialize progress bar
+                document.addEventListener('DOMContentLoaded', function() {
+                    updateProgressBar('overview');
+                });
+            </script>
             <!-- Overview Section -->
             <section id="overview" class="content-section active">
                 <div class="section-header">
